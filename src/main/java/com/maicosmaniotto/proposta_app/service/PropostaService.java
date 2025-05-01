@@ -18,7 +18,7 @@ public class PropostaService {
         this.propostaMapper = propostaMapper;
     }
 
-    public PropostaResponse criarProposta(PropostaRequest propostaRequest) {
+    public PropostaResponse criar(PropostaRequest propostaRequest) {
 
         var proposta = propostaMapper.toEntity(propostaRequest);
         proposta = propostaRepository.save(proposta);

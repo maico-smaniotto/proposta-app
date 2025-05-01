@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.maicosmaniotto.proposta_app.dto.PropostaRequest;
 import com.maicosmaniotto.proposta_app.dto.PropostaResponse;
 import com.maicosmaniotto.proposta_app.service.PropostaService;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("/propostas")
@@ -21,7 +22,11 @@ public class PropostaController {
     }
 
     @PostMapping
-    public ResponseEntity<PropostaResponse> criarProposta(@RequestBody PropostaRequest propostaRequest) {
-        return ResponseEntity.ok(propostaService.criarProposta(propostaRequest));
+    public ResponseEntity<PropostaResponse> criar(@RequestBody PropostaRequest propostaRequest) {
+        PropostaResponse propostaResponse = propostaService.criar(propostaRequest);
+        return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(propostaResponse.id())
+                .toUri()).body(propostaResponse);
     }
 }
