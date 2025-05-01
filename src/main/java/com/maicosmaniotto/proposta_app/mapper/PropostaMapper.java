@@ -7,6 +7,8 @@ import com.maicosmaniotto.proposta_app.dto.PropostaRequest;
 import com.maicosmaniotto.proposta_app.dto.PropostaResponse;
 import com.maicosmaniotto.proposta_app.entity.Proposta;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface PropostaMapper {
 
@@ -27,5 +29,7 @@ public interface PropostaMapper {
     @Mapping(target = "telefone", source = "usuario.telefone")
     @Mapping(target = "renda", source = "usuario.renda")
     PropostaResponse toResponse(Proposta proposta);
+
+    List<PropostaResponse> toListResponse(Iterable<Proposta> propostas);
 
 }

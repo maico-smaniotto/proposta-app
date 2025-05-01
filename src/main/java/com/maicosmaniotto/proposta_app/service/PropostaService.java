@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import com.maicosmaniotto.proposta_app.dto.PropostaRequest;
 import com.maicosmaniotto.proposta_app.dto.PropostaResponse;
 
+import java.util.List;
+
 @Service
 public class PropostaService {
 
@@ -19,10 +21,13 @@ public class PropostaService {
     }
 
     public PropostaResponse criar(PropostaRequest propostaRequest) {
-
         var proposta = propostaMapper.toEntity(propostaRequest);
         proposta = propostaRepository.save(proposta);
 
         return propostaMapper.toResponse(proposta);
+    }
+
+    public List<PropostaResponse> listar() {
+        return propostaMapper.toListResponse(propostaRepository.findAll());
     }
 }
