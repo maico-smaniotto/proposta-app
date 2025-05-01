@@ -6,12 +6,9 @@ import org.mapstruct.Mapping;
 import com.maicosmaniotto.proposta_app.dto.PropostaRequest;
 import com.maicosmaniotto.proposta_app.dto.PropostaResponse;
 import com.maicosmaniotto.proposta_app.entity.Proposta;
-import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface PropostaMapper {
-
-    PropostaMapper INSTANCE = Mappers.getMapper(PropostaMapper.class);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "usuario.nome", source = "nome")

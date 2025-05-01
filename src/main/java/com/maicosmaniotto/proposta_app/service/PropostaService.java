@@ -11,16 +11,18 @@ import com.maicosmaniotto.proposta_app.dto.PropostaResponse;
 public class PropostaService {
 
     private final PropostaRepository propostaRepository;
+    private final PropostaMapper propostaMapper;
 
-    public PropostaService(PropostaRepository propostaRepository) {
+    public PropostaService(PropostaRepository propostaRepository, PropostaMapper propostaMapper) {
         this.propostaRepository = propostaRepository;
+        this.propostaMapper = propostaMapper;
     }
 
     public PropostaResponse criarProposta(PropostaRequest propostaRequest) {
 
-        var proposta = PropostaMapper.INSTANCE.toEntity(propostaRequest);
+        var proposta = propostaMapper.toEntity(propostaRequest);
         proposta = propostaRepository.save(proposta);
 
-        return PropostaMapper.INSTANCE.toResponse(proposta);
+        return propostaMapper.toResponse(proposta);
     }
 }
