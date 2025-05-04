@@ -7,7 +7,7 @@ public record PropostaResponse(
     String cpf,
     String telefone,
     Double renda,
-    Double valorSolicitado,
+    String valorSolicitadoFmt,
     int prazoPagamento,
     Boolean aprovada,
     boolean integrada,
