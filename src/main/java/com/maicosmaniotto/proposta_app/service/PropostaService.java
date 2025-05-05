@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.maicosmaniotto.proposta_app.dto.PropostaRequest;
 import com.maicosmaniotto.proposta_app.dto.PropostaResponse;
+import com.maicosmaniotto.proposta_app.entity.Proposta;
 
 import java.util.List;
 
@@ -34,15 +35,22 @@ public class PropostaService {
     public PropostaResponse criar(PropostaRequest propostaRequest) {
         var proposta = propostaMapper.toEntity(propostaRequest);
         proposta = propostaRepository.save(proposta);
-
-        var propostaResponse = propostaMapper.toResponse(proposta);
+    
+        notificar(proposta);
      
-        notificacaoService.notificar(propostaResponse, exchange);
-     
-        return propostaResponse;
+        return propostaMapper.toResponse(proposta);
     }
 
     public List<PropostaResponse> listar() {
         return propostaMapper.toListResponse(propostaRepository.findAll());
+    }
+
+    private void notificar(Proposta proposta) {
+        try {
+            notificacaoService.notificar(proposta, exchange);
+        } catch (Exception e) {
+            proposta.setIntegrada(false);
+            propostaRepository.save(proposta);
+        }
     }
 }

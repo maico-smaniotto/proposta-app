@@ -1,5 +1,7 @@
 package com.maicosmaniotto.proposta_app.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,8 +29,9 @@ public class Usuario {
 
     private double renda;
 
-    @OneToOne(mappedBy = "usuario")
     // O mapeamento é feito pela Proposta, que tem o id_usuario no atributo "usuario"
+    @OneToOne(mappedBy = "usuario")
+    @JsonBackReference
     private Proposta proposta;
 
 }

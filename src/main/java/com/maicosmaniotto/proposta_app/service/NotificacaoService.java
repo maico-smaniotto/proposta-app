@@ -3,7 +3,7 @@ package com.maicosmaniotto.proposta_app.service;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 
-import com.maicosmaniotto.proposta_app.dto.PropostaResponse;
+import com.maicosmaniotto.proposta_app.entity.Proposta;
 
 @Service
 public class NotificacaoService {
@@ -14,7 +14,7 @@ public class NotificacaoService {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    public void notificar(PropostaResponse proposta, String exchange) {
+    public void notificar(Proposta proposta, String exchange) {
         rabbitTemplate.convertAndSend(exchange, "", proposta);
     }
 
